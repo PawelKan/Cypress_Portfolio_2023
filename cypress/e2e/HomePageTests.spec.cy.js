@@ -1,8 +1,13 @@
 /// <reference types="cypress" />
 
-describe ("Home page tests", () => {
-   it ("main header check", () => {
-      cy.visit('/')
+
+import { faker } from '@faker-js/faker';
+import { navigateTo } from '../support/PageObjects/Navigation.spec';
+
+describe ("Home page check", () => {
+   it ("Check header elements on HomePage", () => {
+      navigateTo.homePageUrl;
+      
       cy.get('.header-middle').should('be.visible')
          .and('contain', 'Home')
          .and('contain', 'Products')
@@ -12,8 +17,10 @@ describe ("Home page tests", () => {
          .and('contain', 'API Testing')
          .and('contain', 'Video Tutorials')
          .and('contain', 'Contact us')
-
-    
    })
+
+   
+
+
 
 })
