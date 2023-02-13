@@ -1,0 +1,27 @@
+[
+    {"cssSelector": ".clearfix > :nth-child(1)", "tekst": "Title" },
+    {"cssSelector": ":nth-child(3) > .top", "tekst": "Mr." },
+    {"cssSelector": ":nth-child(4) > .top", "tekst": "Mrs." },
+    {"cssSelector": "form > :nth-child(3) > label", "tekst": "Name" },
+    {"cssSelector": "form > :nth-child(4) > label", "tekst": "Email" },
+    {"cssSelector": "form > :nth-child(5) > label", "tekst": "Password" },
+    {"cssSelector": "form > :nth-child(6) > label", "tekst": "Date of Birth" },
+    {"cssSelector": "form > :nth-child(7) > label", "tekst": "Sign up for our newsletter!" },
+    {"cssSelector": "form > :nth-child(8) > label", "tekst": "Receive special offers from our partners!" },
+    {"cssSelector": "form > :nth-child(11) > label", "tekst": "First name" },
+    {"cssSelector": "form > :nth-child(12) > label", "tekst": "Last name" },
+    {"cssSelector": "form > :nth-child(13) > label", "tekst": "Company" },
+    {"cssSelector": "form > :nth-child(14) > label", "tekst": "Address" },
+    {"cssSelector": "form > :nth-child(15) > label", "tekst": "Address 2" },
+    {"cssSelector": "form > :nth-child(16) > label", "tekst": "Country" },
+    {"cssSelector": "form > :nth-child(17) > label", "tekst": "State" },
+    {"cssSelector": "form > :nth-child(18) > label", "tekst": "City" },
+    {"cssSelector": "form > :nth-child(19) > label", "tekst": "Zipcode" },
+    {"cssSelector": "form > :nth-child(20) > label", "tekst": "Mobile Number" }
+
+
+
+
+
+    
+]   
