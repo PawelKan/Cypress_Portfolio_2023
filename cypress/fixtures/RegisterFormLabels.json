@@ -18,10 +18,4 @@
     {"cssSelector": "form > :nth-child(18) > label", "tekst": "City" },
     {"cssSelector": "form > :nth-child(19) > label", "tekst": "Zipcode" },
     {"cssSelector": "form > :nth-child(20) > label", "tekst": "Mobile Number" }
-
-
-
-
-
-    
 ]   

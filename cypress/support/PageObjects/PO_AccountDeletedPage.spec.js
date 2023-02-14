@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import { testHelpers } from "../helpers"
+
 export class PO_AccountDeleted{
 
     expected_HeaderText = "Account Deleted!"
@@ -13,6 +15,8 @@ export class PO_AccountDeleted{
     get btn_Continue() { return cy.get('[data-qa="continue-button"]')}
 
     verifyElementsOnAccountDeletedPage(){
+        testHelpers.logStep("VERIFY ELEMENTS ON ACCOUNT DELETED PAGE")
+
         this.header_AccountDeleted.should('have.text', this.expected_HeaderText)
         this.text_firstParagraph.should('have.text', this.expected_FirstParagraphText)
         this.text_secondParagraph.should('have.text', this.expected_SecondParagraphText)

@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 import { faker } from '@faker-js/faker';
+import { testHelpers } from '../helpers';
 
 export class PO_RegisterPage{
 
@@ -30,6 +31,7 @@ export class PO_RegisterPage{
 
 
     verifyRegisterFormFields(valueForName, valueForEmail){
+        testHelpers.logStep("VERIFY REGISTER FOR FIELDS")
         this.header_EnterAccountInformation.should('have.text', 'Enter Account Information')
         this.radio_Mr.should('be.visible')
         this.radio_Mrs.should('be.visible')
@@ -64,6 +66,8 @@ export class PO_RegisterPage{
     }
     
     verifyRegisterFormLabels(fixtureName){
+        testHelpers.logStep("VERIFY REGISTER FORM LABELS")
+
         cy.fixture(fixtureName).then( labelFixture => {
             labelFixture.forEach(element => {
                const css = element.cssSelector
