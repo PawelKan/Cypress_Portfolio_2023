@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import { testHelpers } from "../helpers"
+
 export class PO_AccountCreated{
 
     expected_HeaderText = "Account Created!"
@@ -13,6 +15,8 @@ export class PO_AccountCreated{
     get btn_Continue() { return cy.get('[data-qa="continue-button"]')}
 
     verifyElementsOnAccountCreatedPage(){
+        testHelpers.logStep("VERIFY ELEMENTS ON ACCOUNT CREATED PAGE")
+
         this.header_AccountCreated.should('have.text', this.expected_HeaderText)
         this.text_firstParagraph.should('have.text', this.expected_FirstParagraphText)
         this.text_secondParagraph.should('have.text', this.expected_SecondParagraphText)

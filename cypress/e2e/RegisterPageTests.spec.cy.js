@@ -2,26 +2,31 @@
 
 
 import { faker } from '@faker-js/faker';
+import { testHelpers } from '../support/helpers';
 import { navigateTo } from '../support/PageObjects/Navigation.spec';
 import { onAccountCreatedPage } from '../support/PageObjects/PO_AccountCreatedPage.spec';
 import { onAccountDeletedPage } from '../support/PageObjects/PO_AccountDeletedPage.spec';
+import { onHomePage } from '../support/PageObjects/PO_HomePage.spec';
 import { onLoginPage } from '../support/PageObjects/PO_LoginPage.spec';
 import { onRegisterPage } from '../support/PageObjects/PO_RegisterPage.spec';
 
 describe ("Login and Register page tests", () => {
    it ("Register new user", () => {
       
-      navigateTo.loginPageUrl;
-
+      testHelpers.logStep("Prepare data for test")
       const name = faker.name.firstName()
       const lastName = faker.name.lastName();
       const mail = faker.internet.email(name, lastName, "randomMailForTest.com");
       
+      testHelpers.logStep("Navigate to Login Page")
+      navigateTo.loginPageUrl;
 
+      testHelpers.logStep("Fill Signup Data and click Signup button")
       onLoginPage.txt_signUpName.clear().type(name);
       onLoginPage.txt_signUpEmail.clear().type(mail)
       onLoginPage.btn_Singup.click();
 
+      testHelpers.logStep("Verify and fill register form")
       onRegisterPage.verifyRegisterFormFields(name, mail);
       onRegisterPage.verifyRegisterFormLabels("RegisterFormLabels.json")
 
@@ -42,54 +47,26 @@ describe ("Login and Register page tests", () => {
       onRegisterPage.txt_City.clear().type("City-name")
       onRegisterPage.txt_Zipcode.clear().type("33-333")
       onRegisterPage.txt_MobileNumber.clear().type("999888777")
+
+      testHelpers.logStep("Click Create Account button")
       onRegisterPage.btn_CreateAccount.click()
 
+      testHelpers.logStep("Click Continue button")
       onAccountCreatedPage.btn_Continue.click()
 
-      cy.get('.header-middle').should('be.visible')
-         .and('contain', 'Home')
-         .and('contain', 'Products')
-         .and('contain', 'Cart')
-         .and('contain', 'Logout')
-         .and('not.contain', 'Signup / Login')
-         .and('contain', 'Delete Account')
-         .and('contain', 'Test Cases')
-         .and('contain', 'API Testing')
-         .and('contain', 'Video Tutorials')
-         .and('contain', 'Contact us')
-         .and('contain', 'Logged in as')
+      testHelpers.logStep("Verify header buttons for Logged in User")
+      onHomePage.verifyHomePageElements_ForLoggedInUser()
 
-         cy.get('.shop-menu > .nav > :nth-child(5) > a').click()
+      testHelpers.logStep("Click Delete Account button")
+      onHomePage.btn_DeleteAccount.click()
 
-         onAccountDeletedPage.verifyElementsOnAccountDeletedPage();
-         onAccountDeletedPage.btn_Continue.click();
+      testHelpers.logStep("Verify Delete Account page")
+      onAccountDeletedPage.verifyElementsOnAccountDeletedPage()
 
-         cy.get('.header-middle').should('be.visible')
-         .and('contain', 'Home')
-         .and('contain', 'Products')
-         .and('contain', 'Cart')
-         .and('contain', 'Signup / Login')
-         .and('contain', 'Test Cases')
-         .and('contain', 'API Testing')
-         .and('contain', 'Video Tutorials')
-         .and('contain', 'Contact us')
-         .and('not.contain', 'Delete Account')
-         .and('not.contain', 'Logout')
+      testHelpers.logStep("Click Continue button")
+      onAccountDeletedPage.btn_Continue.click()
 
-
-
-
-
-
-
-
- 
-      
-      
+      testHelpers.logStep("Verify Home page for not logged in user")
+      onHomePage.verifyHomePageElements_ForNotLoggedInUser()
    })
-
-   
-
-
-
 })
