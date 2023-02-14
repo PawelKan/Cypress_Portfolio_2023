@@ -62,6 +62,7 @@ export class PO_RegisterPage{
         this.txt_MobileNumber.should('be.visible')
         this.btn_CreateAccount.should('be.visible').and('have.text', 'Create Account');
     }
+    
     verifyRegisterFormLabels(fixtureName){
         cy.fixture(fixtureName).then( labelFixture => {
             labelFixture.forEach(element => {
