@@ -9,9 +9,10 @@ import { onAccountDeletedPage } from '../support/PageObjects/PO_AccountDeletedPa
 import { onHomePage } from '../support/PageObjects/PO_HomePage.spec';
 import { onLoginPage } from '../support/PageObjects/PO_LoginPage.spec';
 import { onRegisterPage } from '../support/PageObjects/PO_RegisterPage.spec';
+import { testData } from '../support/PageObjects/TestData.spec';
 
-describe ("Login and Register page tests", () => {
-   it ("Register new user", () => {
+describe ("Login and Register tests", () => {
+   it ("Register new user and delete it after registration", () => {
       
       testHelpers.logStep("Prepare data for test")
       const name = faker.name.firstName()
@@ -68,5 +69,27 @@ describe ("Login and Register page tests", () => {
 
       testHelpers.logStep("Verify Home page for not logged in user")
       onHomePage.verifyHomePageElements_ForNotLoggedInUser()
+   })
+
+   it.only("Login and Logout existing user", () => {
+      testHelpers.logStep("Visit Login page")
+      navigateTo.loginPageUrl
+      
+      testHelpers.logStep("Type all needed credentials and click Login btn")
+      onLoginPage.txt_loginEmailAddress.clear().type(testData.existingUser.email)
+      onLoginPage.txt_loginPassword.clear().type(testData.existingUser.password)
+      onLoginPage.btn_Login.click();
+      
+      testHelpers.logStep("Verify page after login")
+      onHomePage.verifyHomePageElements_ForLoggedInUser();
+      onHomePage.btn_LoggedInAs.should('contain', 'Logged in as ' + testData.existingUser.username)
+
+      testHelpers.logStep("Click on Logout button and verify homepage after logout")
+      onHomePage.btn_Logout.click();
+      onHomePage.verifyHomePageElements_ForNotLoggedInUser();
+   })
+
+   it.skip("Try to login with incorrect username and password", () => {
+      //TO DO
    })
 })
