@@ -9,9 +9,10 @@ import { onAccountDeletedPage } from '../support/PageObjects/PO_AccountDeletedPa
 import { onHomePage } from '../support/PageObjects/PO_HomePage.spec';
 import { onLoginPage } from '../support/PageObjects/PO_LoginPage.spec';
 import { onRegisterPage } from '../support/PageObjects/PO_RegisterPage.spec';
+import { testData } from '../support/PageObjects/TestData.spec';
 
-describe ("Login and Register page tests", () => {
-   it ("Register new user", () => {
+describe ("Login and Register tests", () => {
+   it ("Register new user and delete it after registration", () => {
       
       testHelpers.logStep("Prepare data for test")
       const name = faker.name.firstName()
@@ -68,5 +69,18 @@ describe ("Login and Register page tests", () => {
 
       testHelpers.logStep("Verify Home page for not logged in user")
       onHomePage.verifyHomePageElements_ForNotLoggedInUser()
+   })
+
+   it.only("Login and Logout existing user", () => {
+      navigateTo.loginPageUrl
+      
+      onLoginPage.txt_loginEmailAddress.clear().type(testData.existingUser.email)
+      onLoginPage.txt_loginPassword.clear().type(testData.existingUser.password)
+      onLoginPage.btn_Login.click();
+      onHomePage.verifyHomePageElements_ForLoggedInUser();
+      onHomePage.btn_LoggedInAs.should('contain', 'Logged in as ' + testData.existingUser.username)
+
+      onHomePage.btn_Logout.click();
+      onHomePage.verifyHomePageElements_ForNotLoggedInUser();
    })
 })
