@@ -1,9 +1,9 @@
 /// <reference types="cypress" />
 
-
 import { faker } from '@faker-js/faker';
 import { navigateTo } from '../support/PageObjects/Navigation.spec';
 import { onHomePage } from '../support/PageObjects/PO_HomePage.spec';
+import { testHelpers } from '../support/helpers';
 
 describe ("Home page check", () => {
    it ("Check header elements on HomePage", () => {
