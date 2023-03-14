@@ -7,5 +7,6 @@ module.exports = defineConfig({
     viewportWidth: 1920,
     retries: 0,
     defaultCommandTimeout: 10000,
+    excludeSpecPattern : ['**/1-getting-started', '**/2-advanced-examples']
   },
 })
