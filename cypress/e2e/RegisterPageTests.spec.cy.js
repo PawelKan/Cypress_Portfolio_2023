@@ -92,4 +92,8 @@ describe ("Login and Register tests", () => {
    it.skip("Try to login with incorrect username and password", () => {
       //TO DO
    })
+
+   it.skip("Try to login with incorrect username and password", () => {
+      //TO DO
+   })
 })

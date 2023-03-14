@@ -12,12 +12,5 @@ describe ("Home page check", () => {
 
       testHelpers.logStep("Verify Home Page Header for not logged in user")
       onHomePage.verifyHomePageElements_ForNotLoggedInUser()
-
    })
-
-
-   
-
-
-
 })

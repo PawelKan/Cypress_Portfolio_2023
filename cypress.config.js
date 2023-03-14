@@ -5,7 +5,7 @@ module.exports = defineConfig({
     baseUrl : "https://automationexercise.com",
     viewportHeight: 1080,
     viewportWidth: 1920,
-    retries: 1,
-    defaultCommandTimeout: 10000
+    retries: 0,
+    defaultCommandTimeout: 10000,
   },
 })

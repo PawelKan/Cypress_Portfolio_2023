@@ -16,7 +16,9 @@ export class PO_HomePage{
     get btn_Logout() { return cy.get('.header-middle > .container > .row').contains("Logout") }
     get btn_DeleteAccount() {return cy.get('.header-middle > .container > .row').contains("Delete Account") }
     get btn_LoggedInAs() {return cy.get('.header-middle > .container > .row').contains("Logged in as") }
+    get btn_FirstProductOnList() { return cy.get('.features_items').find(':nth-child(3) > .product-image-wrapper > .choose > .nav > li > a')
 
+}
     
     verifyHomePageElements_ForNotLoggedInUser(){
         testHelpers.logStep("VERIFY ELEMENTS ON HOME PAGE FOR NOT LOGGED IN USER")
