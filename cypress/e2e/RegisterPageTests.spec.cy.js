@@ -12,7 +12,8 @@ import { onRegisterPage } from '../support/PageObjects/PO_RegisterPage.spec';
 import { testData } from '../support/PageObjects/TestData.spec';
 
 describe ("Login and Register tests", () => {
-   it ("Register new user and delete it after registration", () => {
+   it.only("Register new user and delete it after registration", () => {
+      cy.intercept({method: "POST", url: "https://automationexercise.com/signup"}).as("POST_RegisterUser")
       
       testHelpers.logStep("Prepare data for test")
       const name = faker.name.firstName()
@@ -52,6 +53,10 @@ describe ("Login and Register tests", () => {
       testHelpers.logStep("Click Create Account button")
       onRegisterPage.btn_CreateAccount.click()
 
+      cy.wait("@POST_RegisterUser").then(response => {
+         console.log(response)
+      })
+
       testHelpers.logStep("Click Continue button")
       onAccountCreatedPage.btn_Continue.click()
 
@@ -71,7 +76,7 @@ describe ("Login and Register tests", () => {
       onHomePage.verifyHomePageElements_ForNotLoggedInUser()
    })
 
-   it.only("Login and Logout existing user", () => {
+   it("Login and Logout existing user", () => {
       testHelpers.logStep("Visit Login page")
       navigateTo.loginPageUrl
       
