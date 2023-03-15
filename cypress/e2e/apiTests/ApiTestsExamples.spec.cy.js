@@ -1,7 +1,22 @@
 /// <reference types="cypress" />
 
+import { testData } from "../../support/PageObjects/TestData.spec";
+
+const fixturesFolderPath = "cypress/a_tmp_testLogs/"
+
 describe ("Api Tests Examples", () => {
-   it.only("Create new account with API", () => {
+   before("Save user mail and pass for test", () => {
+      cy.writeFile(fixturesFolderPath + "usersUsed.txt",
+      "USER MAIL: " + testData.userDataForApiTesting.email + " USER PASS: " + testData.userDataForApiTesting.password + "\n",{
+         encoding: 'utf-8',
+         flag: 'a+'
+      })
+
+      console.log("USER MAIL " + testData.userDataForApiTesting.email)
+      console.log("USER PASS " + testData.userDataForApiTesting.password)
+   })
+
+   it.only("API TEST: Create new User Account API", () => {
       cy.request({
          method: "POST",
          url: 'https://automationexercise.com/api/createAccount',
@@ -10,8 +25,8 @@ describe ("Api Tests Examples", () => {
           },
          body: {
             name: "AsdfName", 
-            email: "asdf@asdftestaaaadaaaaaaaaabaaaaaaaaa.pl",
-            password: 'asdf',
+            email: testData.userDataForApiTesting.email,
+            password: testData.userDataForApiTesting.password,
             title: 'Mr',
             birth_date: "15",
             birth_month: "3", 
@@ -30,63 +45,40 @@ describe ("Api Tests Examples", () => {
       }).then( response => {
          expect(response.status).to.eq(200);
          expect(response.body).to.contain("{\"responseCode\": 201, \"message\": \"User created!\"}")
+         expect(response.requestBody).not.empty;
+         cy.writeFile(fixturesFolderPath + "createAccountResponse.json", response)
       })
    })
 
-   it.skip("Create new account with POST FROM UI", () => {
+   it.only("API TEST: Get user details by email", () =>{
       cy.request({
-         method: "POST",
-         url: "https://automationexercise.com/signup",
-         failOnStatusCode: false,
+         url: "https://automationexercise.com/api/getUserDetailByEmail?email="+testData.userDataForApiTesting.email,
+         method: "GET",
+      }).then( response => {
+         expect(response.status).to.eq(200)
+         //expect(response.statusText).contain('OK');
+         expect(response.allRequestResponses[0]["Response Status"]).eq(200)
+         cy.writeFile(fixturesFolderPath + "getAccountResponse.json", response)
+      })
+   })
+
+   it.only("API TEST: Delete User Account with email and password", () => {
+      cy.request({
+         url: "https://automationexercise.com/api/deleteAccount",
+         method: "DELETE",
+         headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+         },
          body: {
-            csrfmiddlewaretoken: "fJ8LCI21jGJ9FZINRTfiPMczVN3R1U059VjbR0iK2oDQGCnuaQn28SLPBSI8lGCw",
-            name: "AsdfName",
-            email: "asdf@asdftest.test",
-            form_type: "signup"
+            email: testData.userDataForApiTesting.email,
+            password: testData.userDataForApiTesting.password,
          }
-      }).then( (response) => {
-         //expect(response.body.statusCode).to.equal(200);
-         
-         cy.request
-         ({
-            method: "POST",
-            url: 'https://automationexercise.com/signup',
-            failOnStatusCode: false,
-            headers: {
-               cookie: "csrftoken=vzCcFgEz3TxYQ4PCKHgEv48QqBVJGHhApUakBXx4LkXPehcLCOPm1t9d5AGsob1t",
-               dnt: 1,
-               "sec-gpc": 1,
-               "upgrade-insecure-requests": 1
-            },
-            body: {
-               csrfmiddlewaretoken: "pBWcezxgDKtgYFyD0dcfy5BLeJHj7iSrjWukagqLlbT7mSVMSkLX4uC8TIs2PMCk",
-               name: "AsdfName", 
-               email_address: "asdf@asdftest.test",
-               password: 'asdf',
-               days: "15",
-               months: "3", 
-               years: "1990", 
-               newsletter: "1",
-               optin: "1",
-               first_name: "asdfFirstName", 
-               last_name: "asdfLastName", 
-               company: "asdfCompany", 
-               address1: "asdfAddress1", 
-               address2: "asdfAddress2", 
-               country: "India", 
-               state: "asdfState", 
-               city: "asdfCity", 
-               zipcode: "33-333", 
-               mobile_number: "888999000",
-               form_type: "create_account"
-            },         
-         })
-         .then(response  => {
+      }).then( response => {
             console.log(response)
-            expect(response.body.statusCode).to.equal(302);
+            expect(response.status).to.eq(200);
+            expect(response.body).to.contain("{\"responseCode\": 200, \"message\": \"Account deleted!\"}")
+            cy.writeFile(fixturesFolderPath + "deleteAccountResponse.json", response)
          })
       })
-
-      
-   })
+   
 })

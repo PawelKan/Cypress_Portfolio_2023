@@ -8,6 +8,11 @@ export class TestData{
             email : "usernameTest@testpracticetest.com",  
             password : "Test12345!@#"
         }
+    
+    userDataForApiTesting = {
+        email: faker.internet.email(),
+        password: faker.internet.password()
+    }
 
 }
 export const testData = new TestData();
