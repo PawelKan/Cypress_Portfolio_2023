@@ -1,2 +1,6 @@
 package-lock.json
 node_modules
+**/1-getting-started
+**/2-advanced-examples
+**/fixtures/usersUsed.txt
+**/a_tmp_testLogs
