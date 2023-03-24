@@ -2,6 +2,7 @@
 
 
 import { faker } from '@faker-js/faker';
+import { on } from 'events';
 import { testHelpers } from '../support/helpers';
 import { navigateTo } from '../support/PageObjects/Navigation.spec';
 import { onAccountCreatedPage } from '../support/PageObjects/PO_AccountCreatedPage.spec';
@@ -11,8 +12,8 @@ import { onLoginPage } from '../support/PageObjects/PO_LoginPage.spec';
 import { onRegisterPage } from '../support/PageObjects/PO_RegisterPage.spec';
 import { testData } from '../support/PageObjects/TestData.spec';
 
-describe ("Login and Register tests", () => {
-   it.only("Register new user and delete it after registration", () => {
+describe ("(UI) Register tests", () => {
+   it("Register new user and delete it after registration", () => {
       cy.intercept({method: "POST", url: "https://automationexercise.com/signup"}).as("POST_RegisterUser")
       
       testHelpers.logStep("Prepare data for test")
@@ -75,8 +76,10 @@ describe ("Login and Register tests", () => {
       testHelpers.logStep("Verify Home page for not logged in user")
       onHomePage.verifyHomePageElements_ForNotLoggedInUser()
    })
+})
 
-   it("Login and Logout existing user", () => {
+describe("(UI) Login tests", () => {
+   it("UI - Login and Logout existing user", () => {
       testHelpers.logStep("Visit Login page")
       navigateTo.loginPageUrl
       
@@ -94,11 +97,40 @@ describe ("Login and Register tests", () => {
       onHomePage.verifyHomePageElements_ForNotLoggedInUser();
    })
 
-   it.skip("Try to login with incorrect username and password", () => {
-      //TO DO
+   it("UI - Try to login with incorrect username and password", () => {
+      testHelpers.logStep("Visit Login page")
+      navigateTo.loginPageUrl
+
+      testHelpers.logStep("Type all needed credentials and click Login btn")
+      onLoginPage.txt_loginEmailAddress.clear().type('ThisMain@notExist.com')
+      onLoginPage.txt_loginPassword.clear().type('PassNotExist')
+      onLoginPage.btn_Login.click();
+
+      testHelpers.logStep("Verify Error message text")
+      onLoginPage.txt_errorLoginMessage.should('be.visible').and('contain', onLoginPage.texts.str_loginErrorMessageText)
    })
 
-   it.skip("Try to login with incorrect username and password", () => {
-      //TO DO
-   })
+   it.only('UI - Verify field tooltip with text \'Fill this field\' (property use)', () => {
+      testHelpers.logStep("Visit Login page")
+      navigateTo.loginPageUrl
+
+      onLoginPage.txt_loginEmailAddress
+         .invoke('prop', 'validationMessage')
+         .should('equal', 'Wypełnij to pole.')
+
+      onLoginPage.txt_loginEmailAddress
+         .type("invalidMailFormat")
+         .invoke('prop', 'validationMessage')
+         .should('equal', 'Uwzględnij znak „@” w adresie e-mail. W adresie „invalidMailFormat” brakuje znaku „@”.')
+         
+      onLoginPage.txt_loginEmailAddress
+         .type('@')
+         .invoke('prop', 'validationMessage')
+         .should('equal', 'Podaj część po znaku „@”. Adres „invalidMailFormat@” jest niepełny.')
+
+      
+      onLoginPage.txt_loginPassword
+         .invoke('prop', 'validationMessage')
+         .should('equal', 'Wypełnij to pole.')
+   });
 })
