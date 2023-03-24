@@ -2,6 +2,7 @@
 
 
 import { faker } from '@faker-js/faker';
+import { on } from 'events';
 import { testHelpers } from '../support/helpers';
 import { navigateTo } from '../support/PageObjects/Navigation.spec';
 import { onAccountCreatedPage } from '../support/PageObjects/PO_AccountCreatedPage.spec';
@@ -109,7 +110,27 @@ describe("(UI) Login tests", () => {
       onLoginPage.txt_errorLoginMessage.should('be.visible').and('contain', onLoginPage.texts.str_loginErrorMessageText)
    })
 
-   it.only('UI - Verify field tooltip with text \'Fill this field\'', () => {
+   it.only('UI - Verify field tooltip with text \'Fill this field\' (property use)', () => {
+      testHelpers.logStep("Visit Login page")
+      navigateTo.loginPageUrl
+
+      onLoginPage.txt_loginEmailAddress
+         .invoke('prop', 'validationMessage')
+         .should('equal', 'Wypełnij to pole.')
+
+      onLoginPage.txt_loginEmailAddress
+         .type("invalidMailFormat")
+         .invoke('prop', 'validationMessage')
+         .should('equal', 'Uwzględnij znak „@” w adresie e-mail. W adresie „invalidMailFormat” brakuje znaku „@”.')
+         
+      onLoginPage.txt_loginEmailAddress
+         .type('@')
+         .invoke('prop', 'validationMessage')
+         .should('equal', 'Podaj część po znaku „@”. Adres „invalidMailFormat@” jest niepełny.')
+
       
+      onLoginPage.txt_loginPassword
+         .invoke('prop', 'validationMessage')
+         .should('equal', 'Wypełnij to pole.')
    });
 })
