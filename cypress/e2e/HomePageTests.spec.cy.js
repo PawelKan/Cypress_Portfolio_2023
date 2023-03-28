@@ -2,8 +2,10 @@
 
 import { faker } from '@faker-js/faker';
 import { navigateTo } from '../support/PageObjects/Navigation.spec';
-import { onHomePage } from '../support/PageObjects/PO_HomePage.spec';
+import { onHomePageHeader } from '../support/PageObjects/PO_HomePageHeader.spec';
 import { testHelpers } from '../support/helpers';
+import { onHomePageFooter } from '../support/PageObjects/PO_HomePageFooter.spec';
+import { onHomePageContent } from '../support/PageObjects/PO_HomePageContent.spec';
 
 describe ("Home page check", () => {
    it ("Check header elements on HomePage", () => {
@@ -11,6 +13,12 @@ describe ("Home page check", () => {
       navigateTo.homePageUrl;
 
       testHelpers.logStep("Verify Home Page Header for not logged in user")
-      onHomePage.verifyHomePageElements_ForNotLoggedInUser()
+      onHomePageHeader.verifyHomePageHeaderElements_ForNotLoggedInUser()
+
+      testHelpers.logStep("Verify Home Page Content for not logged in user")
+      onHomePageContent.verifyHomePageHeaderElements()
+
+      testHelpers.logStep("Verify Home Page Footer for not logged in user")
+      onHomePageFooter.verifyHomePageFooterElements()
    })
 })

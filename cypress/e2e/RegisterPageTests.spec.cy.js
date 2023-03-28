@@ -7,7 +7,7 @@ import { testHelpers } from '../support/helpers';
 import { navigateTo } from '../support/PageObjects/Navigation.spec';
 import { onAccountCreatedPage } from '../support/PageObjects/PO_AccountCreatedPage.spec';
 import { onAccountDeletedPage } from '../support/PageObjects/PO_AccountDeletedPage.spec';
-import { onHomePage } from '../support/PageObjects/PO_HomePage.spec';
+import { onHomePageHeader } from '../support/PageObjects/PO_HomePageHeader.spec';
 import { onLoginPage } from '../support/PageObjects/PO_LoginPage.spec';
 import { onRegisterPage } from '../support/PageObjects/PO_RegisterPage.spec';
 import { testData } from '../support/PageObjects/TestData.spec';
@@ -62,10 +62,10 @@ describe ("(UI) Register tests", () => {
       onAccountCreatedPage.btn_Continue.click()
 
       testHelpers.logStep("Verify header buttons for Logged in User")
-      onHomePage.verifyHomePageElements_ForLoggedInUser()
+      onHomePageHeader.verifyHomePageHeaderElements_ForLoggedInUser()
 
       testHelpers.logStep("Click Delete Account button")
-      onHomePage.btn_DeleteAccount.click()
+      onHomePageHeader.btn_DeleteAccount.click()
 
       testHelpers.logStep("Verify Delete Account page")
       onAccountDeletedPage.verifyElementsOnAccountDeletedPage()
@@ -74,7 +74,7 @@ describe ("(UI) Register tests", () => {
       onAccountDeletedPage.btn_Continue.click()
 
       testHelpers.logStep("Verify Home page for not logged in user")
-      onHomePage.verifyHomePageElements_ForNotLoggedInUser()
+      onHomePageHeader.verifyHomePageHeaderElements_ForNotLoggedInUser()
    })
 })
 
@@ -89,12 +89,12 @@ describe("(UI) Login tests", () => {
       onLoginPage.btn_Login.click();
       
       testHelpers.logStep("Verify page after login")
-      onHomePage.verifyHomePageElements_ForLoggedInUser();
-      onHomePage.btn_LoggedInAs.should('contain', 'Logged in as ' + testData.existingUser.username)
+      onHomePageHeader.verifyHomePageHeaderElements_ForLoggedInUser();
+      onHomePageHeader.btn_LoggedInAs.should('contain', 'Logged in as ' + testData.existingUser.username)
 
       testHelpers.logStep("Click on Logout button and verify homepage after logout")
-      onHomePage.btn_Logout.click();
-      onHomePage.verifyHomePageElements_ForNotLoggedInUser();
+      onHomePageHeader.btn_Logout.click();
+      onHomePageHeader.verifyHomePageHeaderElements_ForNotLoggedInUser();
    })
 
    it("UI - Try to login with incorrect username and password", () => {

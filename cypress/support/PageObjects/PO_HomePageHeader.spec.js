@@ -2,7 +2,7 @@
 
 import { testHelpers } from "../helpers"
 
-export class PO_HomePage{
+export class PO_HomePageHeader{
 
     get headerSection() { return cy.get('.header-middle') }
     get btn_Home() { return cy.get('.header-middle > .container > .row').contains("Home") }
@@ -20,7 +20,7 @@ export class PO_HomePage{
 
 }
     
-    verifyHomePageElements_ForNotLoggedInUser(){
+    verifyHomePageHeaderElements_ForNotLoggedInUser(){
         testHelpers.logStep("VERIFY ELEMENTS ON HOME PAGE FOR NOT LOGGED IN USER")
 
         this.btn_Home.should('be.visible').and('contain', "Home")
@@ -37,7 +37,7 @@ export class PO_HomePage{
             .and('not.contain', 'Logged in as')
     }
 
-    verifyHomePageElements_ForLoggedInUser(){
+    verifyHomePageHeaderElements_ForLoggedInUser(){
         testHelpers.logStep("VERIFY ELEMENTS ON HOME PAGE FOR LOGGED IN USER")
 
         this.btn_Home.should('be.visible').and('contain', "Home")
@@ -54,4 +54,4 @@ export class PO_HomePage{
     }
 
 }
-export const onHomePage = new PO_HomePage();
+export const onHomePageHeader = new PO_HomePageHeader();
