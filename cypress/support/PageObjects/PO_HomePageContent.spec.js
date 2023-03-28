@@ -4,33 +4,33 @@ import { testHelpers } from "../helpers"
 
 export class PO_HomePageContent{
 
-    get footerSection() { return cy.get('#footer') }
-    get header_Subscription() { return cy.get('.single-widget > h2') }
-    get txt_YourEmailAddress() { return cy.get('#susbscribe_email')}
-    get btn_Subscribe() { return cy.get('#subscribe') }
-    get paragraph_GetMostRecent() { return cy.get('.searchform > p')}
-    get paragrpah_Copyright() { return     cy.get('.footer-bottom') }
-
-    verifyHomePageFooterElements(){
-        this.header_Subscription
+    get section_Slider() { return cy.get('#slider') }
+    get section_LeftMenuSidebar() { return cy.get('.left-sidebar') }
+    get section_FeaturesItems() { return cy.get('.features_items') }
+    get section_RecommendedItems() { return cy.get('.recommended_items') }
+    
+    get header_Category() { return this.section_LeftMenuSidebar.find(':nth-child(1)') }
+    get header_Brands() { return this.section_LeftMenuSidebar.find('.brands_products > h2') }
+    get header_FeaturesItems() { return this.section_FeaturesItems.find('.title') }
+    get header_RecommendedItems() { return this.section_RecommendedItems.find('.title') }
+    
+    verifyHomePageHeaderElements(){
+        this.header_Category
             .should('be.visible')
-            .and('contain', "Subscription")
+            .and('contain', "Category")
 
-        this.txt_YourEmailAddress
+        this.header_Brands
             .should('be.visible')
-            .invoke('attr', 'placeholder').should('contain', 'Your email address')
+            .should('contain', 'Brands')
 
-        this.btn_Subscribe
+        this.header_FeaturesItems
             .should('be.visible')
+            .and('contain', 'Features Items')
+            
 
-        this.paragraph_GetMostRecent
+        this.header_RecommendedItems
             .should('be.visible')
-            .and('contain', 'Get the most recent updates from')
-            .and('contain', 'our site and be updated your self...')
-
-        this.paragrpah_Copyright
-            .should('be.visible')
-            .and('contain', "Copyright © 2021 All rights reserved")
+            .and('contain', "recommended items")
     }
 }
 export const onHomePageContent = new PO_HomePageContent();
