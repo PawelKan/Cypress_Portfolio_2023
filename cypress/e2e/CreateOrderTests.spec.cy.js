@@ -3,7 +3,7 @@
 import { testHelpers} from '../support/helpers';
 import { navigateTo } from '../support/PageObjects/Navigation.spec';
 import { onShoppingCheckoutPage } from '../support/PageObjects/PO_ShoppingCheckoutPage';
-import { onHomePage } from '../support/PageObjects/PO_HomePage.spec';
+import { onHomePageHeader } from '../support/PageObjects/PO_HomePageHeader.spec';
 import { onLoginPage } from '../support/PageObjects/PO_LoginPage.spec';
 import { onShoppingCartPage } from '../support/PageObjects/PO_ShoppingCartPage';
 import { onSimpleProductPage } from '../support/PageObjects/PO_SimpleProductPage';
@@ -17,7 +17,7 @@ describe ("Create order tests with logged in user", () => {
          testHelpers.loginUser();
       })
    })
-   it.skip("Create order with logged in user - example WITHOUT Page Objects", () => {
+   it.skip("(UI) Create order with logged in user - example WITHOUT Page Objects", () => {
     navigateTo.homePageUrl
     //click of first product -> view product button
     cy.get('.features_items').find(':nth-child(3) > .product-image-wrapper > .choose > .nav > li > a').click()
@@ -96,13 +96,13 @@ describe ("Create order tests with logged in user", () => {
    cy.get('[data-qa="continue-button"]').contains('Continue').click()
 
    // Home page visible
-   onHomePage.verifyHomePageElements_ForLoggedInUser()
+   onHomePageHeader.verifyHomePageHeaderElements_ForLoggedInUser()
    })
 
-   it.only("Create order with logged in user - example WITH Page Objects", () => {
+   it.only("(UI) Create order with logged in user - example WITH Page Objects", () => {
     navigateTo.homePageUrl
     //click of first product -> view product button
-    onHomePage.btn_FirstProductOnList.should('contain', 'View Product').click();
+    onHomePageHeader.btn_FirstProductOnList.should('contain', 'View Product').click();
     //click add to cart
     onSimpleProductPage.btn_addToCart.click()
     //check modal is displayed
@@ -163,6 +163,7 @@ describe ("Create order tests with logged in user", () => {
    // continue button
    onShoppingSuccessPage.btn_Continue.contains('Continue').click()
    // Home page visible
-   onHomePage.verifyHomePageElements_ForLoggedInUser()
+   onHomePageHeader.verifyHomePageHeaderElements_ForLoggedInUser()
    })
+   
 })
