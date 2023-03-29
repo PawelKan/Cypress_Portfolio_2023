@@ -17,9 +17,6 @@ describe ("Contact Us page check", () => {
 
       testHelpers.logStep("Fill Form on contact us page")
 
-      //cy.get('.status') - text 'Success! Your details have been submitted successfully.
-      //cy.get('#form-section > .btn') - btn home
-
       onContactUs.txt_Name.clear().type(testData.userDataForContactUsPage.name)
       onContactUs.txt_Email.clear().type(testData.userDataForContactUsPage.email)
       onContactUs.txt_Subject.clear().type(testData.userDataForContactUsPage.subject)
