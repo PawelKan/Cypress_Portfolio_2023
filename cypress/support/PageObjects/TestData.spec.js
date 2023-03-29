@@ -14,5 +14,12 @@ export class TestData{
         password: faker.internet.password()
     }
 
+    userDataForContactUsPage = {
+        name: faker.name.firstName(),
+        email: faker.internet.email(),
+        subject: "temporarySubject",
+        message: "Your message here will be added soon.",
+    }
+
 }
 export const testData = new TestData();

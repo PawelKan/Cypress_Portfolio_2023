@@ -17,6 +17,10 @@ export class PO_ContactUsPage{
 
     get section_RightSideTextUnderFeedbackForUs(){ return cy.get('address') }
 
+    get paragraph_successMessage(){ return cy.get('.status') }
+    get btn_returnToHomePage() { return cy.get('#form-section > .btn') }
+
+
     verifyContactUsPageElements(){
         this.header_ContactUs
             .should('contain', 'Contact').and('contain', 'Us')
@@ -41,6 +45,11 @@ export class PO_ContactUsPage{
             .and('contain','feedback@automationexercise.com')
             .and('contain','If you have any suggestion areas or improvements, do let us know. We will definitely work on it.')
             .and('contain','Thank you')
+    }
+
+    verifyMessageWasSentSuccessfuly(){
+        this.paragraph_successMessage.should('be.visible').and('contain', 'Success! Your details have been submitted successfully.')
+        this.btn_returnToHomePage.should('be.visible').and('contain', "Home")
     }
 }
 export const onContactUs = new PO_ContactUsPage();
