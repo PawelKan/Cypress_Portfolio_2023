@@ -15,6 +15,5 @@ export class TestHelpers{
       onLoginPage.txt_loginPassword.clear().type(testData.existingUser.password)
       onLoginPage.btn_Login.click();
     }
-
 }
 export const testHelpers = new TestHelpers();

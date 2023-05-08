@@ -1,0 +1,28 @@
+{
+  "name": "cypress_portfolio_2023",
+  "version": "1.0.0",
+  "description": "Cypress Version: v12.7.0",
+  "main": "cypress.config.js",
+  "dependencies": {
+    "cypress": "^12.11.0",
+    "install": "^0.13.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "@shelex/cypress-allure-plugin": "^2.38.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "testWithAllure": "npx cypress run --env allure=true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PawelKan/Cypress_Portfolio_2023.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PawelKan/Cypress_Portfolio_2023/issues"
+  },
+  "homepage": "https://github.com/PawelKan/Cypress_Portfolio_2023#readme"
+}

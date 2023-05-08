@@ -4,3 +4,5 @@ node_modules
 **/2-advanced-examples
 **/fixtures/usersUsed.txt
 **/a_tmp_testLogs
+**/allure*
+**/videos
